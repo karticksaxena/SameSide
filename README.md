@@ -2,6 +2,8 @@
 
 Click an app in the Dock and its window on *that* screen comes forward, instead of the one you used last. Click again to go to its window on the other screen. Works with full-screen windows and windows on other desktops (Spaces): SameSide switches that screen to the right desktop. If the app has no window on that screen, macOS behaves as usual.
 
+Unlike tools that drag your windows across screens, SameSide never moves anything. It brings up the window that's already on the screen you're using.
+
 A tiny menu bar app: about 10 MB of memory, no CPU while idle, no network, nothing stored. macOS 14 or later, Apple silicon and Intel.
 
 ## Install
