@@ -8,14 +8,14 @@
 set -e
 cd "$(dirname "$0")"
 mkdir -p build
-swiftc -swift-version 5 Sources/Picker.swift Tests/main.swift -o build/tests
+swiftc -swift-version 5 sources/Picker.swift tests/main.swift -o build/tests
 ./build/tests
 APP=build/SameSide.app
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp Info.plist "$APP/Contents/Info.plist"
-cp Resources/AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
+cp resources/AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 for arch in arm64 x86_64; do
-    swiftc -O -swift-version 5 -target "$arch-apple-macos14.0" Sources/*.swift -o "build/SameSide-$arch"
+    swiftc -O -swift-version 5 -target "$arch-apple-macos14.0" sources/*.swift -o "build/SameSide-$arch"
 done
 lipo -create build/SameSide-arm64 build/SameSide-x86_64 -output "$APP/Contents/MacOS/SameSide"
 codesign --force --sign "${SIGN_ID:--}" "$APP"
@@ -29,8 +29,8 @@ rm -rf build/dmg build/rw.dmg
 mkdir -p build/dmg/.background
 cp -R "$APP" build/dmg/
 ln -s /Applications build/dmg/Applications
-cp Resources/dmg-background.tiff build/dmg/.background/background.tiff
-cp Resources/AppIcon.icns build/dmg/.VolumeIcon.icns
+cp resources/dmg-background.tiff build/dmg/.background/background.tiff
+cp resources/AppIcon.icns build/dmg/.VolumeIcon.icns
 hdiutil create -quiet -volname SameSide -srcfolder build/dmg -fs HFS+ -format UDRW -ov build/rw.dmg
 hdiutil attach -quiet -readwrite -noverify -noautoopen build/rw.dmg
 xattr -wx com.apple.FinderInfo 0000000000000000040000000000000000000000000000000000000000000000 /Volumes/SameSide  # use .VolumeIcon.icns

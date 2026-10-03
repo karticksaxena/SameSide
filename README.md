@@ -60,7 +60,7 @@ Always quit it **before** you turn its Accessibility switch off, remove it from 
 - A click watcher sees each left click before the Dock does and always passes it on unchanged.
 - On a running app's Dock icon, SameSide finds the app by its bundle identifier (never by name), lists its windows on every desktop, picks the one on the clicked screen, and focuses it.
 - It acts when you press, so long-pressing or dragging a running app's Dock icon also switches to that app's window.
-- Focusing a window on another desktop needs private macOS functions, the same ones AltTab and yabai use (`Sources/SkyLight.swift`). They are looked up when SameSide starts: if a macOS update removes one, SameSide logs which one, stops switching windows instead of failing to launch, and the Dock behaves as usual. (A function that still exists but changed how it works could misbehave; that is the risk of private functions.)
+- Focusing a window on another desktop needs private macOS functions, the same ones AltTab and yabai use (`sources/SkyLight.swift`). They are looked up when SameSide starts: if a macOS update removes one, SameSide logs which one, stops switching windows instead of failing to launch, and the Dock behaves as usual. (A function that still exists but changed how it works could misbehave; that is the risk of private functions.)
 
 ## If it stops working after a macOS update
 
@@ -77,13 +77,13 @@ Then watch its decisions and click a Dock icon:
 /usr/bin/log show --last 1d --predicate 'subsystem == "io.github.karticksaxena.SameSide" AND messageType == error'
 ```
 
-- No line at all: the Dock click was not recognised (see `dockApp` in `Sources/System.swift`).
-- "0 windows": the window list came back empty (see `appWindows` in `Sources/System.swift`).
-- "NOT focused", or the right display named but nothing switches: see `focus` in `Sources/SkyLight.swift`.
+- No line at all: the Dock click was not recognised (see `dockApp` in `sources/System.swift`).
+- "0 windows": the window list came back empty (see `appWindows` in `sources/System.swift`).
+- "NOT focused", or the right display named but nothing switches: see `focus` in `sources/SkyLight.swift`.
 
 ## Development
 
-`./build.sh` runs the self-check in `Tests/` and builds `build/SameSide.app`; `./build.sh dmg` also makes the installer (Finder arranges its window, so allow Terminal to control Finder once). `swift Tools/make-assets.swift` redraws the icon and installer background.
+`./build.sh` runs the self-check in `tests/` and builds `build/SameSide.app`; `./build.sh dmg` also makes the installer (Finder arranges its window, so allow Terminal to control Finder once). `swift tools/make-assets.swift` redraws the icon and installer background.
 
 ### Keep the permission across rebuilds
 

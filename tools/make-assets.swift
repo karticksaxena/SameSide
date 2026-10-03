@@ -1,12 +1,12 @@
 // Draws the app icon and the DMG window background. Run from the repo root after changing a design:
-//   swift Tools/make-assets.swift
-// Writes Resources/AppIcon.icns and Resources/dmg-background.tiff (1x + 2x).
+//   swift tools/make-assets.swift
+// Writes resources/AppIcon.icns and resources/dmg-background.tiff (1x + 2x).
 import AppKit
 
 let fm = FileManager.default
 let tmp = fm.temporaryDirectory.appendingPathComponent("sameside-assets-\(getpid())")
 try? fm.createDirectory(at: tmp, withIntermediateDirectories: true)
-try? fm.createDirectory(atPath: "Resources", withIntermediateDirectories: true)
+try? fm.createDirectory(atPath: "resources", withIntermediateDirectories: true)
 
 func color(_ hex: UInt32, _ alpha: CGFloat = 1) -> NSColor {
     NSColor(srgbRed: CGFloat(hex >> 16 & 0xff) / 255, green: CGFloat(hex >> 8 & 0xff) / 255,
@@ -90,7 +90,7 @@ for base in [16, 32, 128, 256, 512] {
         }
     }
 }
-run("/usr/bin/iconutil", ["-c", "icns", iconset.path, "-o", "Resources/AppIcon.icns"])
+run("/usr/bin/iconutil", ["-c", "icns", iconset.path, "-o", "resources/AppIcon.icns"])
 
 // MARK: DMG background (660 x 400 points; Finder puts the app at (165, 190) and Applications at (495, 190) from the top left)
 
@@ -119,6 +119,6 @@ let bg1 = tmp.appendingPathComponent("background.png")
 let bg2 = tmp.appendingPathComponent("background@2x.png")
 render(NSSize(width: 660, height: 400), scale: 1, to: bg1, drawBackground)
 render(NSSize(width: 660, height: 400), scale: 2, to: bg2, drawBackground)
-run("/usr/bin/tiffutil", ["-cathidpicheck", bg1.path, bg2.path, "-out", "Resources/dmg-background.tiff"])
+run("/usr/bin/tiffutil", ["-cathidpicheck", bg1.path, bg2.path, "-out", "resources/dmg-background.tiff"])
 try? fm.removeItem(at: tmp)
-print("Wrote Resources/AppIcon.icns and Resources/dmg-background.tiff")
+print("Wrote resources/AppIcon.icns and resources/dmg-background.tiff")
