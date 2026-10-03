@@ -4,6 +4,8 @@ Click an app in the Dock and its window on *that* screen comes forward, instead 
 
 Unlike tools that drag your windows across screens, SameSide never moves anything. It brings up the window that's already on the screen you're using.
 
+Website: [kartiksaxena.com/sameside](https://www.kartiksaxena.com/sameside)
+
 A tiny menu bar app: about 10 MB of memory, no CPU while idle, no network, nothing stored. macOS 14 or later, Apple silicon and Intel.
 
 ## Install
